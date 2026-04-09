@@ -187,10 +187,11 @@
 
   <!-- Basemap toggle: lives outside the map div -->
   <div id="basemap-toggle">
-    <button class="basemap-btn active" onclick="setBasemap('satellite', this)">Satellite</button>
-    <button class="basemap-btn" onclick="setBasemap('topo', this)">Topo</button>
-    <button class="basemap-btn" onclick="setBasemap('terrain', this)">Terrain</button>
-  </div>
+  <button class="basemap-btn active" onclick="setBasemap('satellite', this)">Satellite</button>
+  <button class="basemap-btn" onclick="setBasemap('topo', this)">Topo</button>
+  <button class="basemap-btn" onclick="setBasemap('terrain', this)">Terrain</button>
+  <button class="basemap-btn" onclick="setBasemap('naip', this)">NAIP</button>
+</div>
 
   <!-- Filter panel: lives outside the map div -->
   <div id="filter-panel">
@@ -207,16 +208,22 @@
 
     // Basemaps
     var basemaps = {
-      satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles © Esri'
-      }),
-      topo: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles © Esri'
-      }),
-      terrain: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles © Esri'
-      })
-    };
+  satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles © Esri'
+  }),
+  topo: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles © Esri'
+  }),
+  terrain: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles © Esri'
+  }),
+  naip: L.tileLayer.wms('https://imagery.nationalmap.gov/arcgis/services/USGSNAIPPlus/ImageServer/WMSServer?', {
+    layers: '0',
+    format: 'image/jpeg',
+    transparent: false,
+    attribution: 'USGS NAIP Plus, The National Map'
+  })
+};
 
     var currentBasemap = basemaps.satellite;
     currentBasemap.addTo(map);
