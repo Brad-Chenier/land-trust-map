@@ -6,384 +6,371 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-  body { margin: 0; font-family: Arial, sans-serif; }
-  #map {
-  height: 100vh;
-  margin-left: 220px;
-}
+    body { margin: 0; font-family: Arial, sans-serif; }
 
-  .legend {
-    background: white;
-    padding: 10px 14px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    line-height: 1.8;
-    font-size: 13px;
-  }
-  .legend-dot {
-    display: inline-block;
-    width: 12px; height: 12px;
-    border-radius: 50%;
-    margin-right: 6px;
-    vertical-align: middle;
-  }
+    #map {
+      height: 100vh;
+      margin-left: 220px;
+    }
 
-  #filter-panel {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 1000;
-    background: white;
-    padding: 10px 14px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 13px;
-  }
-  #filter-panel p {
-    margin: 0 0 8px;
-    font-weight: bold;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #555;
-  }
-  .filter-btn {
-    display: block;
-    width: 100%;
-    text-align: left;
-    margin-bottom: 5px;
-    padding: 4px 10px;
-    border-radius: 4px;
-    border: 1.5px solid transparent;
-    cursor: pointer;
-    font-size: 13px;
-    transition: opacity 0.2s;
-  }
-  .filter-btn.off {
-    opacity: 0.35;
-  }
-  #sidebar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  width: 220px;
-  height: 100vh;
-  background: white;
-  border-right: 1px solid #ddd;
-  padding: 20px 16px;
-  box-sizing: border-box;
-  overflow-y: auto;
-}
+    .legend {
+      background: white;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      line-height: 1.8;
+      font-size: 13px;
+    }
+    .legend-dot {
+      display: inline-block;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
 
-#sidebar h2 {
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #555;
-  margin: 0 0 16px;
-}
+    #filter-panel {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 1000;
+      background: white;
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+    }
+    #filter-panel p {
+      margin: 0 0 8px;
+      font-weight: bold;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #555;
+    }
+    .filter-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      font-size: 13px;
+      transition: opacity 0.2s;
+    }
+    .filter-btn.off {
+      opacity: 0.35;
+    }
 
-#sidebar h3 {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #999;
-  margin: 20px 0 8px;
-  border-top: 1px solid #eee;
-  padding-top: 12px;
-}
+    #sidebar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      width: 220px;
+      height: 100vh;
+      background: white;
+      border-right: 1px solid #ddd;
+      padding: 20px 16px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    #sidebar h2 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #555;
+      margin: 0 0 16px;
+    }
+    #sidebar h3 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #999;
+      margin: 20px 0 8px;
+      border-top: 1px solid #eee;
+      padding-top: 12px;
+    }
 
-.stat-block {
-  margin-bottom: 12px;
-}
+    .stat-block {
+      margin-bottom: 12px;
+    }
+    .stat-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #2d3748;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
 
-.stat-number {
-  font-size: 28px;
-  font-weight: bold;
-  color: #2d3748;
-  line-height: 1;
-}
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      padding: 4px 0;
+      border-bottom: 0.5px solid #f0f0f0;
+    }
+    .status-row:last-child {
+      border-bottom: none;
+    }
+    .status-swatch {
+      display: inline-block;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+    .status-name {
+      flex: 1;
+      color: #444;
+    }
+    .status-acres {
+      color: #888;
+      font-size: 11px;
+    }
 
-.stat-label {
-  font-size: 12px;
-  color: #888;
-  margin-top: 2px;
-}
-
-.status-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  padding: 4px 0;
-  border-bottom: 0.5px solid #f0f0f0;
-}
-
-.status-row:last-child {
-  border-bottom: none;
-}
-
-.status-swatch {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 6px;
-  flex-shrink: 0;
-}
-
-.status-name {
-  flex: 1;
-  color: #444;
-}
-
-.status-acres {
-  color: #888;
-  font-size: 11px;
-}
-#basemap-toggle {
-  position: absolute;
-  top: 16px;
-  left: 236px;
-  z-index: 1000;
-  display: flex;
-  gap: 6px;
-}
-
-.basemap-btn {
-  padding: 5px 12px;
-  font-size: 12px;
-  font-weight: bold;
-  background: white;
-  border: 1.5px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.basemap-btn:hover {
-  border-color: #888;
-}
-
-.basemap-btn.active {
-  background: #2d3748;
-  color: white;
-  border-color: #2d3748;
-}
+    #basemap-toggle {
+      position: absolute;
+      top: 16px;
+      left: 236px;
+      z-index: 1000;
+      display: flex;
+      gap: 6px;
+    }
+    .basemap-btn {
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: bold;
+      background: white;
+      border: 1.5px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .basemap-btn:hover {
+      border-color: #888;
+    }
+    .basemap-btn.active {
+      background: #2d3748;
+      color: white;
+      border-color: #2d3748;
+    }
   </style>
 </head>
 <body>
-<div id="sidebar">
-  <h2>Property Summary</h2>
 
-  <div class="stat-block">
-    <div class="stat-number" id="total-acres">—</div>
-    <div class="stat-label">total acres</div>
+  <!-- Sidebar: lives outside the map div -->
+  <div id="sidebar">
+    <h2>Property Summary</h2>
+    <div class="stat-block">
+      <div class="stat-number" id="total-acres">—</div>
+      <div class="stat-label">total acres</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number" id="total-parcels">—</div>
+      <div class="stat-label">total parcels</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number" id="protected-acres">—</div>
+      <div class="stat-label">acres protected or in easement</div>
+    </div>
+    <h3>Acres by status</h3>
+    <div id="status-breakdown"></div>
   </div>
 
-  <div class="stat-block">
-    <div class="stat-number" id="total-parcels">—</div>
-    <div class="stat-label">total parcels</div>
-  </div>
-
-  <div class="stat-block">
-    <div class="stat-number" id="protected-acres">—</div>
-    <div class="stat-label">acres protected or in easement</div>
-  </div>
-
-  <h3>Acres by status</h3>
-  <div id="status-breakdown"></div>
-</div>
-  <div id="map">
+  <!-- Basemap toggle: lives outside the map div -->
   <div id="basemap-toggle">
-  <button class="basemap-btn active" onclick="setBasemap('satellite', this)">Satellite</button>
-  <button class="basemap-btn" onclick="setBasemap('topo', this)">Topo</button>
-  <button class="basemap-btn" onclick="setBasemap('terrain', this)">Terrain</button>
-</div>
-  <div id="filter-panel">
-  <p>Filter by status</p>
+    <button class="basemap-btn active" onclick="setBasemap('satellite', this)">Satellite</button>
+    <button class="basemap-btn" onclick="setBasemap('topo', this)">Topo</button>
+    <button class="basemap-btn" onclick="setBasemap('terrain', this)">Terrain</button>
   </div>
+
+  <!-- Filter panel: lives outside the map div -->
+  <div id="filter-panel">
+    <p>Filter by status</p>
+  </div>
+
+  <!-- Map container -->
+  <div id="map"></div>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
 
-  var map = L.map('map');
+    var map = L.map('map');
 
-  // Define all three basemaps
-var basemaps = {
-  satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles © Esri'
-  }),
-  topo: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-    attribution: 'Tiles © Esri'
-  }),
-  terrain: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
-  attribution: 'Tiles © Esri'
-  })
-};
+    // Basemaps
+    var basemaps = {
+      satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles © Esri'
+      }),
+      topo: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles © Esri'
+      }),
+      terrain: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles © Esri'
+      })
+    };
 
-// Start with satellite active
-var currentBasemap = basemaps.satellite;
-currentBasemap.addTo(map);
+    var currentBasemap = basemaps.satellite;
+    currentBasemap.addTo(map);
 
-// Function called by the toggle buttons
-function setBasemap(name, btn) {
-  map.removeLayer(currentBasemap);
-  currentBasemap = basemaps[name];
-  currentBasemap.addTo(map);
-
-  // Update active button style
-  document.querySelectorAll('.basemap-btn').forEach(function(b) {
-    b.classList.remove('active');
-  });
-  btn.classList.add('active');
-}
-
-  function getColor(status) {
-    switch (status) {
-      case 'protected':   return '#52b788';
-      case 'easement':    return '#74c69d';
-      case 'negotiation': return '#f4a261';
-      case 'pending':     return '#ffd166';
-      case 'target':      return '#e63946';
-      case 'rejected':    return '#adb5bd';
-      default:            return '#cccccc';
-    }
-  }
-
-fetch('properties.geojson')
-  .then(response => response.json())
-  .then(function(data) {
-  // Track which statuses are currently visible
-  var activeFilters = {};
-
-  // Store individual layers by status for toggling
-  var layersByStatus = {};
-
-  var geojsonLayer = L.geoJSON(data, {
-
-    style: function(feature) {
-      return {
-        color: '#ffffff',
-        weight: 1.5,
-        fillColor: getColor(feature.properties.status),
-        fillOpacity: 0.75
-      };
-    },
-
-    onEachFeature: function(feature, layer) {
-      var p = feature.properties;
-      var popup = '<strong>' + (p.parcel_id || 'No ID') + '</strong><br>';
-      popup += 'Parish: ' + (p.parish || '—') + '<br>';
-      popup += 'Acres: ' + p.acres.toFixed(1) + '<br>';
-      popup += 'Status: ' + p.status + '<br>';
-      popup += 'Priority: ' + (p.priority || '—') + '<br>';
-      if (p.date_acq)  popup += 'Acquired: ' + p.date_acq + '<br>';
-      if (p.tar_date)  popup += 'Target date: ' + p.tar_date + '<br>';
-      if (p.notes)     popup += '<em>' + p.notes + '</em><br>';
-      if (p.link)      popup += '<a href="' + p.link + '" target="_blank">View document</a>';
-      layer.bindPopup(popup);
-
-      layer.on('mouseover', function() {
-        layer.setStyle({ weight: 3, color: '#ffff00' });
+    function setBasemap(name, btn) {
+      map.removeLayer(currentBasemap);
+      currentBasemap = basemaps[name];
+      currentBasemap.addTo(map);
+      document.querySelectorAll('.basemap-btn').forEach(function(b) {
+        b.classList.remove('active');
       });
-      layer.on('mouseout', function() {
-        geojsonLayer.resetStyle(layer);
-      });
-
-      // File this layer under its status for filter toggling
-      var s = p.status;
-      if (!layersByStatus[s]) layersByStatus[s] = [];
-      layersByStatus[s].push(layer);
+      btn.classList.add('active');
     }
 
-  }).addTo(map);
-
-  map.fitBounds(geojsonLayer.getBounds());
-
-  // Build filter buttons from whatever statuses exist in the data
-  var statuses = Object.keys(layersByStatus);
-
-  var panel = document.getElementById('filter-panel');
-
-  statuses.forEach(function(s) {
-    activeFilters[s] = true;
-
-    var btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.setAttribute('data-status', s);
-    btn.style.background = getColor(s);
-    btn.style.borderColor = getColor(s);
-    btn.style.color = '#fff';
-    btn.innerHTML = s;
-
-    btn.addEventListener('click', function() {
-      if (activeFilters[s]) {
-        // Hide these layers
-        layersByStatus[s].forEach(function(l) { map.removeLayer(l); });
-        activeFilters[s] = false;
-        btn.classList.add('off');
-      } else {
-        // Show these layers
-        layersByStatus[s].forEach(function(l) { map.addLayer(l); });
-        activeFilters[s] = true;
-        btn.classList.remove('off');
+    function getColor(status) {
+      switch (status) {
+        case 'protected':   return '#52b788';
+        case 'easement':    return '#74c69d';
+        case 'negotiation': return '#f4a261';
+        case 'pending':     return '#ffd166';
+        case 'target':      return '#e63946';
+        case 'rejected':    return '#adb5bd';
+        default:            return '#cccccc';
       }
-    });
+    }
 
-    panel.appendChild(btn);
-  });
+    // Fetch the GeoJSON file (works on Netlify, not on local file://)
+    fetch('properties.geojson')
+      .then(response => response.json())
+      .then(function(data) {
 
-  // Legend
-  var legend = L.control({ position: 'bottomright' });
-  legend.onAdd = function() {
-    var div = L.DomUtil.create('div', 'legend');
-    statuses.forEach(function(s) {
-      div.innerHTML += '<span class="legend-dot" style="background:' + getColor(s) + '"></span>' + s + '<br>';
-    });
-    return div;
-  };
-  legend.addTo(map);
-// Calculate and display sidebar stats
-var totalAcres = 0;
-var totalParcels = 0;
-var protectedAcres = 0;
-var acresByStatus = {};
+        var activeFilters = {};
+        var layersByStatus = {};
 
-data.features.forEach(function(feature) {
-  var p = feature.properties;
-  var a = p.acres;
-  var s = p.status;
+        var geojsonLayer = L.geoJSON(data, {
 
-  totalAcres += a;
-  totalParcels += 1;
+          style: function(feature) {
+            return {
+              color: '#ffffff',
+              weight: 1.5,
+              fillColor: getColor(feature.properties.status),
+              fillOpacity: 0.75
+            };
+          },
 
-  if (s === 'protected' || s === 'easement') {
-    protectedAcres += a;
-  }
+          onEachFeature: function(feature, layer) {
+            var p = feature.properties;
+            var popup = '<strong>' + (p.parcel_id || 'No ID') + '</strong><br>';
+            popup += 'Parish: ' + (p.parish || '—') + '<br>';
+            popup += 'Acres: ' + p.acres.toFixed(1) + '<br>';
+            popup += 'Status: ' + p.status + '<br>';
+            popup += 'Priority: ' + (p.priority || '—') + '<br>';
+            if (p.date_acq)  popup += 'Acquired: ' + p.date_acq + '<br>';
+            if (p.tar_date)  popup += 'Target date: ' + p.tar_date + '<br>';
+            if (p.notes)     popup += '<em>' + p.notes + '</em><br>';
+            if (p.link)      popup += '<a href="' + p.link + '" target="_blank">View document</a>';
+            layer.bindPopup(popup);
 
-  if (!acresByStatus[s]) acresByStatus[s] = 0;
-  acresByStatus[s] += a;
-});
+            layer.on('mouseover', function() {
+              layer.setStyle({ weight: 3, color: '#ffff00' });
+            });
+            layer.on('mouseout', function() {
+              geojsonLayer.resetStyle(layer);
+            });
 
-// Push the numbers into the HTML elements
-document.getElementById('total-acres').textContent    = totalAcres.toFixed(1);
-document.getElementById('total-parcels').textContent  = totalParcels;
-document.getElementById('protected-acres').textContent = protectedAcres.toFixed(1);
+            var s = p.status;
+            if (!layersByStatus[s]) layersByStatus[s] = [];
+            layersByStatus[s].push(layer);
+          }
 
-// Build the per-status breakdown rows
-var breakdown = document.getElementById('status-breakdown');
-Object.keys(acresByStatus).forEach(function(s) {
-  var row = document.createElement('div');
-  row.className = 'status-row';
-  row.innerHTML =
-    '<span class="status-swatch" style="background:' + getColor(s) + '"></span>' +
-    '<span class="status-name">' + s + '</span>' +
-    '<span class="status-acres">' + acresByStatus[s].toFixed(1) + ' ac</span>';
-  breakdown.appendChild(row);
-});
+        }).addTo(map);
 
-});
+        map.fitBounds(geojsonLayer.getBounds());
+
+        // Filter buttons
+        var statuses = Object.keys(layersByStatus);
+        var panel = document.getElementById('filter-panel');
+
+        statuses.forEach(function(s) {
+          activeFilters[s] = true;
+
+          var btn = document.createElement('button');
+          btn.className = 'filter-btn';
+          btn.setAttribute('data-status', s);
+          btn.style.background = getColor(s);
+          btn.style.borderColor = getColor(s);
+          btn.style.color = '#fff';
+          btn.innerHTML = s;
+
+          btn.addEventListener('click', function() {
+            if (activeFilters[s]) {
+              layersByStatus[s].forEach(function(l) { map.removeLayer(l); });
+              activeFilters[s] = false;
+              btn.classList.add('off');
+            } else {
+              layersByStatus[s].forEach(function(l) { map.addLayer(l); });
+              activeFilters[s] = true;
+              btn.classList.remove('off');
+            }
+          });
+
+          panel.appendChild(btn);
+        });
+
+        // Legend
+        var legend = L.control({ position: 'bottomright' });
+        legend.onAdd = function() {
+          var div = L.DomUtil.create('div', 'legend');
+          statuses.forEach(function(s) {
+            div.innerHTML += '<span class="legend-dot" style="background:' + getColor(s) + '"></span>' + s + '<br>';
+          });
+          return div;
+        };
+        legend.addTo(map);
+
+        // Sidebar stats
+        var totalAcres = 0;
+        var totalParcels = 0;
+        var protectedAcres = 0;
+        var acresByStatus = {};
+
+        data.features.forEach(function(feature) {
+          var p = feature.properties;
+          var a = p.acres;
+          var s = p.status;
+
+          totalAcres += a;
+          totalParcels += 1;
+
+          if (s === 'protected' || s === 'easement') {
+            protectedAcres += a;
+          }
+
+          if (!acresByStatus[s]) acresByStatus[s] = 0;
+          acresByStatus[s] += a;
+        });
+
+        document.getElementById('total-acres').textContent     = totalAcres.toFixed(1);
+        document.getElementById('total-parcels').textContent   = totalParcels;
+        document.getElementById('protected-acres').textContent = protectedAcres.toFixed(1);
+
+        var breakdown = document.getElementById('status-breakdown');
+        Object.keys(acresByStatus).forEach(function(s) {
+          var row = document.createElement('div');
+          row.className = 'status-row';
+          row.innerHTML =
+            '<span class="status-swatch" style="background:' + getColor(s) + '"></span>' +
+            '<span class="status-name">' + s + '</span>' +
+            '<span class="status-acres">' + acresByStatus[s].toFixed(1) + ' ac</span>';
+          breakdown.appendChild(row);
+        });
+
+      }); // end fetch
+
   </script>
 </body>
 </html>
