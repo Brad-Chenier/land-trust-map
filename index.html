@@ -217,11 +217,9 @@
   terrain: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}', {
     attribution: 'Tiles © Esri'
   }),
-  naip: L.tileLayer.wms('https://imagery.nationalmap.gov/arcgis/services/USGSNAIPPlus/ImageServer/WMSServer?', {
-    layers: '0',
-    format: 'image/jpeg',
-    transparent: false,
-    attribution: 'USGS NAIP Plus, The National Map'
+  naip: L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}', {
+  maxZoom: 20,
+  attribution: 'USGS The National Map'
   })
 };
 
