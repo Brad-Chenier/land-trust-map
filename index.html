@@ -139,7 +139,7 @@
     #basemap-toggle {
       position: absolute;
       top: 16px;
-      left: 236px;
+      left: 290px;
       z-index: 1000;
       display: flex;
       gap: 6px;
@@ -294,6 +294,32 @@
         }).addTo(map);
 
         map.fitBounds(geojsonLayer.getBounds());
+		
+		// Home button — zooms back to full GeoJSON extent
+var homeBtn = L.control({ position: 'topleft' });
+homeBtn.onAdd = function() {
+  var btn = L.DomUtil.create('button', 'home-btn');
+  btn.innerHTML = '⌂';
+  btn.title = 'Zoom to full extent';
+  btn.style.cssText = [
+    'width: 30px',
+    'height: 30px',
+    'background: white',
+    'border: 1px solid #ccc',
+    'border-radius: 4px',
+    'font-size: 16px',
+    'cursor: pointer',
+    'display: flex',
+    'align-items: center',
+    'justify-content: center',
+    'margin-top: 4px'
+  ].join(';');
+  L.DomEvent.on(btn, 'click', function() {
+    map.fitBounds(geojsonLayer.getBounds());
+  });
+  return btn;
+};
+homeBtn.addTo(map);
 
         // Filter buttons
         var statuses = Object.keys(layersByStatus);
