@@ -29,17 +29,17 @@
       vertical-align: middle;
     }
 
-    #filter-panel {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      z-index: 1000;
-      background: white;
-      padding: 10px 14px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 13px;
-    }
+   #filter-panel {
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  z-index: 1000;
+  background: white;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+}
     #filter-panel p {
       margin: 0 0 8px;
       font-weight: bold;
@@ -137,13 +137,13 @@
     }
 
     #basemap-toggle {
-      position: absolute;
-      top: 16px;
-      left: 290px;
-      z-index: 1000;
-      display: flex;
-      gap: 6px;
-    }
+  position: absolute;
+  top: 64px;
+  left: 290px;
+  z-index: 1000;
+  display: flex;
+  gap: 6px;
+}
     .basemap-btn {
       padding: 5px 12px;
       font-size: 12px;
@@ -162,6 +162,48 @@
       color: white;
       border-color: #2d3748;
     }
+	#title-bar {
+  position: absolute;
+  top: 0;
+  left: 220px;
+  right: 0;
+  z-index: 1000;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px 0 16px;
+  box-sizing: border-box;
+}
+
+#title-bar .client-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2d3748;
+  letter-spacing: 0.02em;
+}
+
+#title-bar .firm-logo {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#title-bar .firm-logo img {
+  height: 32px;
+  width: auto;
+}
+
+#title-bar .firm-logo-text {
+  font-size: 12px;
+  font-weight: bold;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
   </style>
 </head>
 <body>
@@ -184,6 +226,13 @@
     <h3>Acres by status</h3>
     <div id="status-breakdown"></div>
   </div>
+  <div id="title-bar">
+  <span class="client-name">East Baton Rouge Land Trust</span>
+  <div class="firm-logo">
+    <!-- Replace the line below with an <img> tag once you have a logo file -->
+    <<img src="ChenierLogo.png" alt="Chenier Environmental Consulting, LLC" />
+  </div>
+</div>
 
   <!-- Basemap toggle: lives outside the map div -->
   <div id="basemap-toggle">
